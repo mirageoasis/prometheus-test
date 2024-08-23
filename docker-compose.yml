@@ -25,6 +25,16 @@ services:
     restart: always
     networks:
       - promnet
+  redis-exporter:
+    image: oliver006/redis_exporter
+    container_name: redis-exporter
+    ports:
+      - 9121:9121
+    command:
+      - '--redis.addr=10.0.244.247:6379'
+    restart: always
+    networks:
+      - promnet
 
 networks:
   promnet:

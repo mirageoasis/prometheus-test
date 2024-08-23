@@ -7,7 +7,7 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"] # 자신의 프로메테우스에서 수집
 
-  - job_name: "Application"
+  - job_name: "springboot"
     metrics_path: "/actuator/prometheus"
     scrape_interval: 3s
     static_configs:
