@@ -11,4 +11,10 @@ scrape_configs:
     metrics_path: "/actuator/prometheus"
     scrape_interval: 3s
     static_configs:
-      - targets: [ "host.docker.internal:8080" ] # 스프링부트 서버 도메인:포트
+      - targets: [ "43.203.115.183:8080" ] # 스프링부트 서버 도메인:포트
+  
+  - job_name: "redis"
+    metrics_path: /metrics
+    scrape_interval: 3s
+    static_configs:
+      - targets: [ "10.0.244.247:9100" ]
