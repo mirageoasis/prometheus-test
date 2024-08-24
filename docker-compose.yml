@@ -30,9 +30,11 @@ services:
     container_name: redis-exporter
     ports:
       - 9121:9121
+    environment:
+      REDIS_ADDR: '10.0.244.247:6379'
+      REDIS_PASSWORD: 'team3'
     command:
-      - '--redis.addr=10.0.244.247:6379'
-      - '--redis.password=team3'
+      - '--debug'
     restart: always
     networks:
       - promnet
