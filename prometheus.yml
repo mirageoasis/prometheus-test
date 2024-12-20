@@ -5,16 +5,22 @@ global:
 scrape_configs:
   - job_name: "prometheus"
     static_configs:
-      - targets: ["localhost:9090"] # 자신의 프로메테우스에서 수집
+      - targets: ["host.docker.internal:9090"] # 자신의 프로메테우스에서 수집
 
   - job_name: "springboot"
     metrics_path: "/actuator/prometheus"
     scrape_interval: 3s
     static_configs:
-      - targets: [ "43.203.115.183:8080" ] # 스프링부트 서버 도메인:포트
+      - targets: [ "host.docker.internal:8080" ] # 스프링부트 서버 도메인:포트
   
   - job_name: "redis"
     metrics_path: /metrics
     scrape_interval: 3s
     static_configs:
       - targets: ["redis-exporter:9121"] # 도커 내부에서 실행되는 컨테이너의 IP:포트
+  
+  - job_name: "mysql"
+    metrics_path: /metrics
+    scrape_interval: 3s
+    static_configs:
+      - targets: ["mysql-exporter:9104"] # 도커 내부에서 실행되는 컨테이너의 IP:포트

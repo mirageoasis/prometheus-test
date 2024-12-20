@@ -11,8 +11,6 @@ services:
     command:
       - '--web.enable-lifecycle'
     restart: always
-    networks:
-      - promnet
 
   grafana:
     image: grafana/grafana
@@ -23,22 +21,25 @@ services:
     ports:
       - 3000:3000
     restart: always
-    networks:
-      - promnet
+
   redis-exporter:
     image: oliver006/redis_exporter
     container_name: redis-exporter
     ports:
       - 9121:9121
     environment:
-      REDIS_ADDR: '10.0.244.247:6379'
-      REDIS_PASSWORD: 'team3'
+      REDIS_ADDR: 'host.docker.internal:6379'
+      #REDIS_PASSWORD: 'team3'
     command:
       - '--debug'
     restart: always
-    networks:
-      - promnet
 
-networks:
-  promnet:
-    driver: bridge
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysql-exporter
+    ports:
+      - 9104:9104
+    command:
+      - '--mysqld.username=root:root'
+      - '--mysqld.address=host.docker.internal:3306'
+    restart: always
